@@ -38,7 +38,7 @@ it('Exemple GET request', () =>  {
 })
 
 
-it.only('Exemple POST request', () =>  {
+it('Exemple POST request with "expect" verification', () =>  {
 
     const requestBody = {
         "amount":200,
@@ -47,7 +47,7 @@ it.only('Exemple POST request', () =>  {
         "cardExp":"0524",
         "card":"4552331448138217",
         "action":"info",
-        "xref":"6c94f9599b420bca3d8bfcbcf42a3cdd",
+        "xref":"6c94f9599b420bca3d8bfcbcf42a3cdd",  // не забываем обновить индификатор сессии !!!
         "_":1695832997257
     };
 
@@ -60,12 +60,52 @@ it.only('Exemple POST request', () =>  {
         method: 'POST',
         url: 'https://next.privat24.ua/api/p24/pub/mobipay',
         body:requestBody,
-        headers:headersData
+        headers:headersData  // не забываем обновить cookie!!!!!
     })
         .then((response)=>{
-            console.log(response.body);
+            expect(response).to.have.property('status').to.equal(200)
+            expect(response.body).to.have.property('status').to.equal('success')
+            expect(response.body.data).to.have.property('amount').to.equal('200.0')
+
+            // если data это масив то далее во вложенность можно лезьть по индексу
+            // expect(response.body.data[i]).to.have.property('amount').to.equal('200.0')
+            console.log(response);
         })
 })
+
+
+
+
+it.only('Exemple POST request with "should" verification', () =>  {
+
+    const requestBody = {
+        "amount":200,
+        "phone":"+380686979712",
+        "cardCvv":"111",
+        "cardExp":"0524",
+        "card":"4552331448138217",
+        "action":"info",
+        "xref":"a15acbf536d6ae12fbf6e61094b230d6",  // не забываем обновить индификатор сессии !!!
+        "_":1695832997257
+    };
+
+    const headersData = {
+        cookie:
+        '_gcl_au=1.1.257437460.1694957864; _fbp=fb.1.1694957864466.539974661; lsl=1; theme=light; _gid=GA1.2.2055984008.1695751007; pubkey=5a05e80a06f5a49a89d8484fbe3e8c15; _ga=GA1.2.1182981250.1694957864; fp=48; lfp=9/17/2023, 4:37:49 PM; pa=1695751011745.08370.6221533765041669next.privat24.ua0.7940169877501957+6; _ga_G0T18XQY2T=GS1.1.1695836952.25.1.1695837132.60.0.0; _gat_gtag_UA_29683426_11=1',
+    }
+
+    cy.request({
+        method: 'POST',
+        url: 'https://next.privat24.ua/api/p24/pub/mobipay',
+        body:requestBody,
+        headers:headersData  // не забываем обновить cookie!!!!!
+    }).its('body').should('contain', {
+        status: 'success'
+    }).its('data').should('contain', {  // проваливаемся по структуре к элементу data
+        status: 'ok'
+    })     
+})
+
 
 
 
