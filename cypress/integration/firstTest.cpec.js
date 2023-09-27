@@ -30,18 +30,42 @@ it('Money transfer brtween foreign cards', ()=>{
 })
 
 
+it('Exemple GET request', () =>  {
+    cy.request('https://next.privat24.ua')
+        .then((response)=>{
+            console.log(response);
+        })
+})
 
 
+it.only('Exemple POST request', () =>  {
 
+    const requestBody = {
+        "amount":200,
+        "phone":"+380686979712",
+        "cardCvv":"111",
+        "cardExp":"0524",
+        "card":"4552331448138217",
+        "action":"info",
+        "xref":"6c94f9599b420bca3d8bfcbcf42a3cdd",
+        "_":1695832997257
+    };
 
+    const headersData = {
+        cookie:
+        '_gcl_au=1.1.257437460.1694957864; _fbp=fb.1.1694957864466.539974661; lsl=1; theme=light; _gid=GA1.2.2055984008.1695751007; pubkey=62df0097a53a8c521f5a641163e6693d; _ga=GA1.2.1182981250.1694957864; lfp=9/17/2023, 4:37:49 PM; pa=1695751011745.08370.6221533765041669next.privat24.ua0.7940169877501957+3; fp=41; _ga_G0T18XQY2T=GS1.1.1695832696.24.1.1695832725.31.0.0',
+    }
 
-
-
-
-
-
-
-
+    cy.request({
+        method: 'POST',
+        url: 'https://next.privat24.ua/api/p24/pub/mobipay',
+        body:requestBody,
+        headers:headersData
+    })
+        .then((response)=>{
+            console.log(response.body);
+        })
+})
 
 
 
