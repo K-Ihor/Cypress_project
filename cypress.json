@@ -1,12 +1,12 @@
 {
-    "imageConfig": {
-      "createDiffImage": true,                
-      "threshold": 0.01,                      
-      "thresholdType": "percent",            
+    "env":{
+      "cypress-plagin-snapshots":{
+        "imageConfig": {
+          "threahold": 0.05,          // 1
+          "threaholdType": "percent" //  or pixel
+        }
+      }
     },
-    "name": "custom image name",           
-    "separator": "custom image separator", 
-    
     "ignoreTestFiles": [
       "**/examples/*",
       "**/__snapshots__/*",

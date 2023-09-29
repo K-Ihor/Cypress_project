@@ -21,6 +21,9 @@ it.only('check succes state of payment in the archive | public session', ()=> {
 
     basePage.open('https://next.privat24.ua?lang=en');
         archivePage.selectArchiveMenu()
+
+        cy.wait(2000).get('tbody').toMatchImageSnapshot(); // делаем эталонный скриншот который автоматом сохранится и будет сравнивать выбранную область tbody
+        cy.wait(2000).document().toMatchImageSnapshot();  // скрин полного документа
 })
 
 it.skip('check error state of payment in the archive | public session', ()=> {
