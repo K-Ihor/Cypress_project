@@ -1,0 +1,24 @@
+{
+    "task_id": "cache",
+    "data": {
+        "channel" "P24WEB",
+        "message": "",
+        "payments": [
+            {
+                "aCard": "4552331448138217",
+                "amount": "1 201",
+                "bName": "Kyivstar Ukraine",
+                "commission": "4.0",
+                "currency": "UAH",
+                "description": "Mobile payment. Phone number +380686979712",
+                "link": "mobipay",
+                "pmErrorCode": "",
+                "ref": "P24A840893376C32988"
+            }
+        ],
+        "result": "accept",
+        "timestamp": "1608914439709"
+    },
+    "ref": "payments_36d91022d70aceb3e26d41dd1b1b4981f944b36e",
+    "status": "success"
+}

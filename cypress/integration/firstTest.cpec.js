@@ -1,9 +1,40 @@
 /// <reference types="Cypress" />
 import { basePage } from "../support/pages/BasePage"
+import { archivePage } from "../support/pages/archive";
 import { mobilePhoneReplenishment } from "../support/pages/moileReplenishment"
 import { transfer } from "../support/pages/transfers"
 
-it('Replenishment of Ukrain mobile phone namber', ()=>{
+// MOCK and STUB
+// beforeEach('setou success respons with stub', ()=> {
+//     cy.intercept('https://next.privat24.ua/api/p24/pub/confirm/check?', // MOCK
+//     {fixture: 'confirmResponse/success.json'} )
+
+//     cy.intercept('https://next.privat24.ua/history/transactions',
+//     {fixture: 'archiveResponse/success.json'} )
+// })
+
+it.only('check succes state of payment in the archive | public session', ()=> {
+//     cy.intercept('https://next.privat24.ua/history/transactions',  // Можем указывать в самом тесте для перехвата
+//     {fixture: 'archiveResponse/success.json'})
+//      })
+
+
+    basePage.open('https://next.privat24.ua?lang=en');
+        archivePage.selectArchiveMenu()
+})
+
+it.skip('check error state of payment in the archive | public session', ()=> {
+    //     cy.intercept('https://next.privat24.ua/history/transactions',  // Можем передать ошибку
+    //     {fixture: 'archiveResponse/error.json'})
+    //      })
+    
+    
+        basePage.open('https://next.privat24.ua?lang=en');
+            archivePage.selectArchiveMenu()
+    })
+
+
+it.skip('Replenishment of Ukrain mobile phone namber', ()=>{
     basePage.open('https://next.privat24.ua/mobile?lang=en')
     mobilePhoneReplenishment.typePhoneNumber('686979712')
     basePage.typeAmount('1')
@@ -15,11 +46,13 @@ it('Replenishment of Ukrain mobile phone namber', ()=>{
     mobilePhoneReplenishment.checkDebitComission('4')
     mobilePhoneReplenishment.checkPaymentCurrency('UAH')
     mobilePhoneReplenishment.checkComissionCurrency('UAH')
+    cy.contains('Pay')
+        .click()
 })
 
 
 
-it('Money transfer brtween foreign cards', ()=>{
+it.skip('Money transfer brtween foreign cards', ()=>{
     basePage.open('https://next.privat24.ua/money-transfer/card?lang=en')
     basePage.typeDebitCardData('4552331448138217', '0524', '111')
     transfer.typeReceiverCard('5309233034765085')
@@ -30,7 +63,7 @@ it('Money transfer brtween foreign cards', ()=>{
 })
 
 
-it('Exemple GET request', () =>  {
+it.skip('Exemple GET request', () =>  {
     cy.request('https://next.privat24.ua')
         .then((response)=>{
             console.log(response);
@@ -38,7 +71,7 @@ it('Exemple GET request', () =>  {
 })
 
 
-it('Exemple POST request with "expect" verification', () =>  {
+it.skip('Exemple POST request with "expect" verification', () =>  {
 
     const requestBody = {
         "amount":200,
@@ -76,7 +109,7 @@ it('Exemple POST request with "expect" verification', () =>  {
 
 
 
-it.only('Exemple POST request with "should" verification', () =>  {
+it.skip('Exemple POST request with "should" verification', () =>  {
 
     const requestBody = {
         "amount":200,
